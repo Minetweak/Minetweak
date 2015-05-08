@@ -10,8 +10,8 @@ targetCompatibility = 1.6
 sourceSets {
     main {
         java.srcDirs = [
-                'src/main/java',
-                'mcp/src/minecraft_server'
+            'src/main/java',
+            'mcp/src/minecraft_server'
         ]
     }
 }
