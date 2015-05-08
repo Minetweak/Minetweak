@@ -1,0 +1,15 @@
+--- mcp/vanillaSrc/minecraft_server/net/minecraft/server/MinecraftServer.java
++++ mcp/src/minecraft_server/net/minecraft/server/MinecraftServer.java
+@@ -1075,11 +1075,11 @@
+         }
+     }
+ 
+     public String getServerModName()
+     {
+-        return "vanilla";
++        return "minetweak";
+     }
+ 
+     /**
+      * Adds the server info, including from theWorldServer, to the crash report.
+      */
