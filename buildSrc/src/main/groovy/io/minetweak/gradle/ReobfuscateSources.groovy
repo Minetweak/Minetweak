@@ -6,12 +6,17 @@ import org.gradle.api.tasks.TaskAction
 /**
  * @author Logan Gorence
  */
-class RecompileSources extends DefaultTask {
+class ReobfuscateSources extends DefaultTask {
+
+    ReobfuscateSources() {
+        setDescription("Reobfuscate Minecraft source code")
+        setGroup()
+    }
 
     @TaskAction
-    void recompileSources() {
+    void reobfuscateSources() {
         new ProcessHelper().dir(new File("mcp/"))
-                .command("bash", "recompile.sh", "--server")
+                .command("bash", "reobfuscate.sh", "--server")
                 .inheritIO()
                 .start()
     }

@@ -9,16 +9,40 @@ import org.gradle.api.Project
 class MinetweakPlugin implements Plugin<Project> {
 
     public static File patchesDir = new File("patches/")
-    public static File modSrcDir = new File("mcp/src/")
     public static File vanillaSrcDir = new File("mcp/vanillaSrc/")
 
-    public void apply(Project project) {
+    void apply(Project project) {
         patchesDir.mkdir()
 
-        project.getTasks().create("generatePatches", GeneratePatches.class)
-        project.getTasks().create("applyPatches", ApplyPatches.class)
-        project.getTasks().create("copySources", CopySources.class)
-        project.getTasks().create("recompileSources", RecompileSources.class)
+        GeneratePatches generatePatches =
+                project.getTasks().create("generatePatches", GeneratePatches.class)
+        generatePatches.setDescription("Generate Minecraft source patches")
+        generatePatches.setGroup("minetweak")
+
+        ApplyPatches applyPatches =
+                project.getTasks().create("applyPatches", ApplyPatches.class)
+        applyPatches.setDescription("Apply patches to the Minecraft source")
+        applyPatches.setGroup("minetweak")
+
+        CopySources copySources =
+                project.getTasks().create("copySources", CopySources.class)
+        copySources.setDescription("Copy Minetweak sources to Minecraft sources")
+        copySources.setGroup("minetweak")
+
+        RecompileSources recompileSources =
+                project.getTasks().create("recompileSources", RecompileSources.class)
+        recompileSources.setDescription("Recompile Minecraft sources")
+        recompileSources.setGroup("minetweak")
+
+        ReobfuscateSources reobfuscateSources =
+                project.getTasks().create("reobfuscateSources", ReobfuscateSources.class)
+        reobfuscateSources.setDescription("Reobfuscate Minecraft sources")
+        reobfuscateSources.setGroup("minetweak")
+
+        DownloadMCP downloadMCP =
+                project.getTasks().create("downloadMCP", DownloadMCP.class)
+        downloadMCP.setDescription("Download MCP")
+        downloadMCP.setGroup("minetweak")
     }
 
 }
