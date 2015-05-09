@@ -1,5 +1,6 @@
 package io.minetweak.gradle
 
+import org.apache.commons.io.FileUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
@@ -15,6 +16,7 @@ class ReobfuscateSources extends DefaultTask {
 
     @TaskAction
     void reobfuscateSources() {
+        FileUtils.touch(new File("mcp/temp/client_meta.log"))
         new ProcessHelper().dir(new File("mcp/"))
                 .command("bash", "reobfuscate.sh", "--server")
                 .inheritIO()
