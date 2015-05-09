@@ -14,16 +14,6 @@ class MinetweakPlugin implements Plugin<Project> {
     void apply(Project project) {
         patchesDir.mkdir()
 
-        GeneratePatches generatePatches =
-                project.getTasks().create("generatePatches", GeneratePatches.class)
-        generatePatches.setDescription("Generate Minecraft source patches")
-        generatePatches.setGroup("minetweak")
-
-        ApplyPatches applyPatches =
-                project.getTasks().create("applyPatches", ApplyPatches.class)
-        applyPatches.setDescription("Apply patches to the Minecraft source")
-        applyPatches.setGroup("minetweak")
-
         CopySources copySources =
                 project.getTasks().create("copySources", CopySources.class)
         copySources.setDescription("Copy Minetweak sources to Minecraft sources")
@@ -46,6 +36,12 @@ class MinetweakPlugin implements Plugin<Project> {
         downloadMinecraft.setGroup("minetweak")
         downloadMinecraft.dependsOn(unzipMCP)
 
+        DownloadLibraries downloadLibraries =
+                project.getTasks().create("downloadLibraries", DownloadLibraries.class)
+        downloadLibraries.setDescription("Download required libraries")
+        downloadLibraries.setGroup("minetweak")
+        downloadLibraries.dependsOn(unzipMCP)
+
         DecompileSources decompileSources =
                 project.getTasks().create("decompileSources", DecompileSources.class)
         decompileSources.setDescription("Decompile Minecraft sources")
@@ -56,13 +52,31 @@ class MinetweakPlugin implements Plugin<Project> {
                 project.getTasks().create("recompileSources", RecompileSources.class)
         recompileSources.setDescription("Recompile Minecraft sources")
         recompileSources.setGroup("minetweak")
-        recompileSources.dependsOn(decompileSources)
+        recompileSources.dependsOn(decompileSources, downloadLibraries)
 
         ReobfuscateSources reobfuscateSources =
                 project.getTasks().create("reobfuscateSources", ReobfuscateSources.class)
         reobfuscateSources.setDescription("Reobfuscate Minecraft sources")
         reobfuscateSources.setGroup("minetweak")
         reobfuscateSources.dependsOn(recompileSources)
+
+        MakeVanillaCopy makeVanillaCopy =
+                project.getTasks().create("makeVanillaCopy", MakeVanillaCopy.class)
+        makeVanillaCopy.setDescription("Make a copy of the vanilla sources")
+        makeVanillaCopy.setGroup("minetweak")
+        makeVanillaCopy.dependsOn(decompileSources)
+
+        GeneratePatches generatePatches =
+                project.getTasks().create("generatePatches", GeneratePatches.class)
+        generatePatches.setDescription("Generate Minecraft source patches")
+        generatePatches.setGroup("minetweak")
+        generatePatches.dependsOn(makeVanillaCopy)
+
+        ApplyPatches applyPatches =
+                project.getTasks().create("applyPatches", ApplyPatches.class)
+        applyPatches.setDescription("Apply patches to the Minecraft source")
+        applyPatches.setGroup("minetweak")
+        applyPatches.dependsOn(decompileSources)
     }
 
 }
