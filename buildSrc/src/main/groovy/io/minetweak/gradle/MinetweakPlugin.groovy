@@ -29,20 +29,40 @@ class MinetweakPlugin implements Plugin<Project> {
         copySources.setDescription("Copy Minetweak sources to Minecraft sources")
         copySources.setGroup("minetweak")
 
+        DownloadMCP downloadMCP =
+                project.getTasks().create("downloadMCP", DownloadMCP.class)
+        downloadMCP.setDescription("Download MCP")
+        downloadMCP.setGroup("minetweak")
+
+        UnzipMCP unzipMCP =
+                project.getTasks().create("unzipMCP", UnzipMCP.class)
+        unzipMCP.setDescription("Unzip MCP")
+        unzipMCP.setGroup("minetweak")
+        unzipMCP.dependsOn(downloadMCP)
+
+        DownloadMinecraft downloadMinecraft =
+                project.getTasks().create("downloadMinecraft", DownloadMinecraft.class)
+        downloadMinecraft.setDescription("Download Minecraft server JAR")
+        downloadMinecraft.setGroup("minetweak")
+        downloadMinecraft.dependsOn(unzipMCP)
+
+        DecompileSources decompileSources =
+                project.getTasks().create("decompileSources", DecompileSources.class)
+        decompileSources.setDescription("Decompile Minecraft sources")
+        decompileSources.setGroup("minetweak")
+        decompileSources.dependsOn(downloadMinecraft)
+
         RecompileSources recompileSources =
                 project.getTasks().create("recompileSources", RecompileSources.class)
         recompileSources.setDescription("Recompile Minecraft sources")
         recompileSources.setGroup("minetweak")
+        recompileSources.dependsOn(decompileSources)
 
         ReobfuscateSources reobfuscateSources =
                 project.getTasks().create("reobfuscateSources", ReobfuscateSources.class)
         reobfuscateSources.setDescription("Reobfuscate Minecraft sources")
         reobfuscateSources.setGroup("minetweak")
-
-        DownloadMCP downloadMCP =
-                project.getTasks().create("downloadMCP", DownloadMCP.class)
-        downloadMCP.setDescription("Download MCP")
-        downloadMCP.setGroup("minetweak")
+        reobfuscateSources.dependsOn(recompileSources)
     }
 
 }
