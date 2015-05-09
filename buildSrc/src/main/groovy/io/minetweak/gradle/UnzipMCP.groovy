@@ -12,7 +12,7 @@ class UnzipMCP extends DefaultTask {
 
     @TaskAction
     void unzipMCP() {
-        if (new File("mcp/").exists()) {
+        if (new File("mcp/decompile.sh").exists()) {
             state.upToDate()
         } else {
             try {
