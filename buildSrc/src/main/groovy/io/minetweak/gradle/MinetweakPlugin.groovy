@@ -52,7 +52,7 @@ class MinetweakPlugin implements Plugin<Project> {
                 project.getTasks().create("recompileSources", RecompileSources.class)
         recompileSources.setDescription("Recompile Minecraft sources")
         recompileSources.setGroup("minetweak")
-        recompileSources.dependsOn(decompileSources, downloadLibraries)
+        recompileSources.dependsOn(decompileSources, downloadLibraries, copySources)
 
         ReobfuscateSources reobfuscateSources =
                 project.getTasks().create("reobfuscateSources", ReobfuscateSources.class)
