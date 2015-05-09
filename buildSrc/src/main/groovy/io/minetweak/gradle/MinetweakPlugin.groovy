@@ -78,6 +78,12 @@ class MinetweakPlugin implements Plugin<Project> {
         generatePatches.setDescription("Generate Minecraft source patches")
         generatePatches.setGroup("minetweak")
         generatePatches.dependsOn(makeVanillaCopy)
+
+        ZipReobfuscated zipReobfuscated =
+                project.getTasks().create("zipReobfuscated", ZipReobfuscated.class)
+        zipReobfuscated.setDescription("Zip reobfuscated classes")
+        zipReobfuscated.setGroup("minetweak")
+        //zipReobfuscated.dependsOn(reobfuscateSources)
     }
 
 }
