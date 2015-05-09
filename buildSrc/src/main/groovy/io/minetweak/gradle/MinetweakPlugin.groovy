@@ -48,11 +48,18 @@ class MinetweakPlugin implements Plugin<Project> {
         decompileSources.setGroup("minetweak")
         decompileSources.dependsOn(downloadMinecraft)
 
+        ApplyPatches applyPatches =
+                project.getTasks().create("applyPatches", ApplyPatches.class)
+        applyPatches.setDescription("Apply patches to the Minecraft source")
+        applyPatches.setGroup("minetweak")
+        applyPatches.dependsOn(decompileSources)
+
         RecompileSources recompileSources =
                 project.getTasks().create("recompileSources", RecompileSources.class)
         recompileSources.setDescription("Recompile Minecraft sources")
         recompileSources.setGroup("minetweak")
-        recompileSources.dependsOn(decompileSources, downloadLibraries, copySources)
+        recompileSources.dependsOn(decompileSources, downloadLibraries, copySources,
+                applyPatches)
 
         ReobfuscateSources reobfuscateSources =
                 project.getTasks().create("reobfuscateSources", ReobfuscateSources.class)
@@ -71,12 +78,6 @@ class MinetweakPlugin implements Plugin<Project> {
         generatePatches.setDescription("Generate Minecraft source patches")
         generatePatches.setGroup("minetweak")
         generatePatches.dependsOn(makeVanillaCopy)
-
-        ApplyPatches applyPatches =
-                project.getTasks().create("applyPatches", ApplyPatches.class)
-        applyPatches.setDescription("Apply patches to the Minecraft source")
-        applyPatches.setGroup("minetweak")
-        applyPatches.dependsOn(decompileSources)
     }
 
 }
