@@ -11,7 +11,7 @@ class DecompileSources extends DefaultTask {
     @TaskAction
     void decompileSources() {
         new ProcessHelper().dir(new File("mcp/"))
-                .command("bash", "decompile.sh", "--server")
+                .command("bash", "decompile.sh", "--server", "--nocopy", "-w ../minecraftDir/")
                 .inheritIO()
                 .start()
     }
