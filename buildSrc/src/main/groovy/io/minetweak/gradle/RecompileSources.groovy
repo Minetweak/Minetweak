@@ -11,7 +11,7 @@ class RecompileSources extends DefaultTask {
     @TaskAction
     void recompileSources() {
         new ProcessHelper().dir(new File("mcp/"))
-                .command("bash", "recompile.sh", "--server")
+                .command("bash", "recompile.sh", "--server", "--nocopy", "-w ../minecraftDir/")
                 .inheritIO()
                 .start()
     }
