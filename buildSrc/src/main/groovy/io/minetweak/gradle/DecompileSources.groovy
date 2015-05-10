@@ -10,10 +10,13 @@ class DecompileSources extends DefaultTask {
 
     @TaskAction
     void decompileSources() {
-        new ProcessHelper().dir(new File("mcp/"))
-                .command("bash", "decompile.sh", "--server", "--nocopy", "-w ../minecraftDir/")
+        def exit = new ProcessHelper().dir(new File("mcp/"))
+                .command("bash", "decompile.sh", "--server", "--nocopy"
                 .inheritIO()
                 .start()
+        if (exit != 0) {
+            state.failure.initCause(new Throwable("Decompile failed"))
+        }
     }
 
 }

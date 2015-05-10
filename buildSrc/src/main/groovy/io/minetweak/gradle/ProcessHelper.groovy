@@ -26,7 +26,7 @@ class ProcessHelper {
         this
     }
 
-    void start() {
+    int start() {
         def p = processBuilder.start()
         p.waitFor()
     }

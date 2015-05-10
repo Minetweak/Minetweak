@@ -17,10 +17,13 @@ class ReobfuscateSources extends DefaultTask {
     @TaskAction
     void reobfuscateSources() {
         FileUtils.touch(new File("mcp/temp/client_meta.log"))
-        new ProcessHelper().dir(new File("mcp/"))
-                .command("bash", "reobfuscate.sh", "--server", "-w ../minecraftDir/")
+        def exit = new ProcessHelper().dir(new File("mcp/"))
+                .command("bash", "reobfuscate.sh", "--server")
                 .inheritIO()
                 .start()
+        if (exit != 0) {
+            state.failure.initCause(new Throwable("Reobfuscate failed"))
+        }
     }
 
 }
