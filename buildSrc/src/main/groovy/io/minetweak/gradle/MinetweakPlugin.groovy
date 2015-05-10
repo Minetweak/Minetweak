@@ -83,7 +83,7 @@ class MinetweakPlugin implements Plugin<Project> {
                 project.getTasks().create("zipReobfuscated", ZipReobfuscated.class)
         zipReobfuscated.setDescription("Zip reobfuscated classes")
         zipReobfuscated.setGroup("minetweak")
-        //zipReobfuscated.dependsOn(reobfuscateSources)
+        zipReobfuscated.dependsOn(reobfuscateSources)
     }
 
 }
