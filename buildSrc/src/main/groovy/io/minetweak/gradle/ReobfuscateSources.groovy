@@ -18,7 +18,7 @@ class ReobfuscateSources extends DefaultTask {
     void reobfuscateSources() {
         FileUtils.touch(new File("mcp/temp/client_meta.log"))
         new ProcessHelper().dir(new File("mcp/"))
-                .command("bash", "reobfuscate.sh", "--server", "--nocopy", "-w ../minecraftDir/")
+                .command("bash", "reobfuscate.sh", "--server", "-w ../minecraftDir/")
                 .inheritIO()
                 .start()
     }
