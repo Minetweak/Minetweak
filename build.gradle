@@ -30,7 +30,7 @@ repositories {
 
 dependencies {
     compile 'io.minetweak:MinetweakAPI:1.0-SNAPSHOT'
-    compile 'net.minecraft:launchwrapper:1.11'
+    compile 'io.minetweak:launchwrapper:1.0-SNAPSHOT'
 
     // Minecraft dependencies
     compile 'com.mojang:authlib:1.5.17'
