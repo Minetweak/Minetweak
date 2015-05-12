@@ -12,6 +12,7 @@ class ZipReobfuscated extends DefaultTask {
 
     @TaskAction
     void zipReobfuscated() {
+        new File("mtrelease.zip").delete()
         ZipParameters zps = new ZipParameters()
         zps.includeRootFolder = false
         new ZipFile("mtrelease.zip").createZipFileFromFolder(
