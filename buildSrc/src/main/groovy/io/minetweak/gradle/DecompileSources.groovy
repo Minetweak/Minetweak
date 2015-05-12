@@ -10,12 +10,16 @@ class DecompileSources extends DefaultTask {
 
     @TaskAction
     void decompileSources() {
-        def exit = new ProcessHelper().dir(new File("mcp/"))
-                .command("bash", "decompile.sh", "--server", "--nocopy")
-                .inheritIO()
-                .start()
-        if (exit != 0) {
-            state.failure.initCause(new Throwable("Decompile failed"))
+        if (new File("mcp/src/").exists()) {
+            state.upToDate()
+        } else {
+            def exit = new ProcessHelper().dir(new File("mcp/"))
+                    .command("bash", "decompile.sh", "--server", "--nocopy")
+                    .inheritIO()
+                    .start()
+            if (exit != 0) {
+                state.failure.initCause(new Throwable("Decompile failed"))
+            }
         }
     }
 
