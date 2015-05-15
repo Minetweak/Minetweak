@@ -1,4 +1,4 @@
-package io.minetweak;
+package io.minetweak.event;
 
 /**
  * @author Logan Gorence

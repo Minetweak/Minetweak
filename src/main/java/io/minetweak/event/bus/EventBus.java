@@ -36,4 +36,8 @@ public class EventBus {
             h.executeEvent(event);
         }
     }
+
+    public int getHandlerCount() {
+        return handlers.size();
+    }
 }
