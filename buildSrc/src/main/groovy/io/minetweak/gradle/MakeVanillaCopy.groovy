@@ -11,7 +11,7 @@ class MakeVanillaCopy extends DefaultTask {
 
     @TaskAction
     void makeVanillaCopy() {
-        if (!new File("mcp/vanillaSrc/").exists()) {
+        if (new File("mcp/vanillaSrc/").exists()) {
             state.upToDate()
         } else {
             FileUtils.copyDirectory(new File("mcp/src"), new File("mcp/vanillaSrc"))
