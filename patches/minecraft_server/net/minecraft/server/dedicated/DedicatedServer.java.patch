@@ -1,0 +1,29 @@
+--- mcp/vanillaSrc/minecraft_server/net/minecraft/server/dedicated/DedicatedServer.java
++++ mcp/src/minecraft_server/net/minecraft/server/dedicated/DedicatedServer.java
+@@ -10,10 +10,13 @@
+ import java.util.Collections;
+ import java.util.List;
+ import java.util.Random;
+ import java.util.concurrent.Callable;
+ import java.util.concurrent.TimeUnit;
++
++import io.minetweak.Minetweak;
++import io.minetweak.ServerLoadedEvent;
+ import net.minecraft.command.ICommandSender;
+ import net.minecraft.command.ServerCommand;
+ import net.minecraft.crash.CrashReport;
+ import net.minecraft.entity.player.EntityPlayer;
+ import net.minecraft.network.rcon.IServer;
+@@ -254,10 +257,12 @@
+                 this.loadAllWorlds(this.getFolderName(), this.getFolderName(), var9, var18, var8);
+                 long var12 = System.nanoTime() - var4;
+                 String var14 = String.format("%.3fs", new Object[] {Double.valueOf((double)var12 / 1.0E9D)});
+                 logger.info("Done (" + var14 + ")! For help, type \"help\" or \"?\"");
+ 
++                Minetweak.getInstance().getEventBus().post(new ServerLoadedEvent());
++
+                 if (this.settings.getBooleanProperty("enable-query", false))
+                 {
+                     logger.info("Starting GS4 status listener");
+                     this.theRConThreadQuery = new RConThreadQuery(this);
+                     this.theRConThreadQuery.startThread();

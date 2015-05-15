@@ -1,26 +1,16 @@
 package io.minetweak.launch;
 
+import io.minetweak.Minetweak;
+
 /**
- * Entrypoint past the tweaker that starts mod loading.
+ * Entrypoint past the tweaker.
  *
  * @author Logan Gorence
  */
 public class MinetweakLaunch {
 
-    private static MinetweakLaunch instance;
-
-    private MinetweakTweaker tweaker;
-
-    private MinetweakLaunch(MinetweakTweaker tweaker) {
-        this.tweaker = tweaker;
-    }
-
-    public static MinetweakLaunch getInstance() {
-        return instance;
-    }
-
-    public static void setup(MinetweakTweaker tweaker) {
-        instance = new MinetweakLaunch(tweaker);
+    protected static void setup() {
+        Minetweak.getInstance();
     }
 
 }

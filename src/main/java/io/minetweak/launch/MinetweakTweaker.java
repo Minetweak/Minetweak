@@ -28,7 +28,7 @@ public class MinetweakTweaker implements ITweaker {
         launchClassLoader.addClassLoaderExclusion("com.mojang.util.QueueLogAppender");
         launchClassLoader.addClassLoaderExclusion("org.objectweb.asm.");
 
-        MinetweakLaunch.setup(this);
+        MinetweakLaunch.setup();
     }
 
     /**
