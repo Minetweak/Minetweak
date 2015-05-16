@@ -20,11 +20,8 @@ import java.util.zip.ZipEntry;
  */
 public class PluginManager<T> extends samrg472.plugins.plugin.PluginManager<T> {
 
-    private EventBus eventBus;
-
-    public PluginManager(EventBus eventBus) {
+    public PluginManager() {
         super();
-        this.eventBus = eventBus;
     }
 
     public void loadPlugins(File pluginsDirectory) throws IOException, IllegalAccessException, InstantiationException {
@@ -42,9 +39,8 @@ public class PluginManager<T> extends samrg472.plugins.plugin.PluginManager<T> {
                 System.out.println("Loading plugin " + plugin.getPath());
                 PluginMetadata meta = gson.fromJson(new InputStreamReader(jarFile.getInputStream(pluginJson)), PluginMetadata.class);
                 try {
-                    Object o = addPlugin(meta.getName(), plugin, meta.getMainClass());
-                    eventBus.register(o);
-                    System.out.println(eventBus.getHandlerCount());
+                    addPlugin(meta.getName(), plugin, meta.getMainClass());
+                    //System.out.println(eventBus.getHandlerCount());
                 } catch (ClassNotFoundException e) {
                     System.err.println("Main class for plugin '" + meta.getName() + "' " + meta.getMainClass() + " not found");
                 }
@@ -54,12 +50,12 @@ public class PluginManager<T> extends samrg472.plugins.plugin.PluginManager<T> {
         }
     }
 
-    /*@Override
+    @Override
     public T addPlugin(String name, File jar, String clazz, File... dependencies) throws FileNotFoundException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         JarLoader<T> loader = super.addPlugin(name, jar, dependencies);
         T instance = loader.createInstance(clazz);
-        Minetweak.getInstance().getEventBus().register(instance);
+        Minetweak.getEventBus().register(instance);
         return instance;
-    }*/
+    }
 
 }

@@ -1,6 +1,8 @@
 package io.minetweak;
 
+import io.minetweak.event.ServerLoadedEvent;
 import io.minetweak.event.bus.EventBus;
+import io.minetweak.event.bus.Subscribe;
 import io.minetweak.plugins.PluginManager;
 
 import java.io.File;
@@ -12,10 +14,10 @@ import java.io.IOException;
 public class Minetweak {
 
     private static Minetweak minetweak;
+    private static EventBus eventBus;
 
     private final File pluginsDirectory;
-    private final EventBus eventBus;
-    private final PluginManager<Object> pluginManager;
+    private final PluginManager pluginManager;
 
     private Minetweak() {
         pluginsDirectory = new File("plugins/");
@@ -24,7 +26,7 @@ public class Minetweak {
         eventBus = new EventBus();
         eventBus.register(this);
 
-        pluginManager = new PluginManager<Object>(eventBus);
+        pluginManager = new PluginManager();
         try {
             pluginManager.loadPlugins(pluginsDirectory);
         } catch (IOException e) {
@@ -44,8 +46,17 @@ public class Minetweak {
         return minetweak;
     }
 
-    public EventBus getEventBus() {
+    public static EventBus getEventBus() {
+        if (eventBus == null) {
+            eventBus = new EventBus();
+        }
         return eventBus;
+    }
+
+    @Subscribe
+    public void serverLoaded(ServerLoadedEvent event) {
+        System.out.println("Server loaded");
+        System.out.println(eventBus.getHandlerCount());
     }
 
     public File getPluginsDirectory() {

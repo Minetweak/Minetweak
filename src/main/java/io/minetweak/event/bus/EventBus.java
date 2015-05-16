@@ -35,6 +35,7 @@ public class EventBus {
         for (RegisteredHandler h : handlers) {
             h.executeEvent(event);
         }
+        System.out.println("Posted event " + event.getClass().getCanonicalName());
     }
 
     public int getHandlerCount() {

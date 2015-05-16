@@ -27,8 +27,6 @@ public class MinetweakTweaker implements ITweaker {
         // This fixes the logging in the GUI.
         launchClassLoader.addClassLoaderExclusion("com.mojang.util.QueueLogAppender");
         launchClassLoader.addClassLoaderExclusion("org.objectweb.asm.");
-
-        MinetweakLaunch.setup();
     }
 
     /**

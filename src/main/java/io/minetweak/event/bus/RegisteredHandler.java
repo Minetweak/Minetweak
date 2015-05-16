@@ -41,6 +41,7 @@ public class RegisteredHandler {
             if (m.getEventType().isAssignableFrom(event.getClass())) {
                 m.invoke(object, event);
                 executed = true;
+                System.out.println("Ran event");
             }
         }
         return executed;
