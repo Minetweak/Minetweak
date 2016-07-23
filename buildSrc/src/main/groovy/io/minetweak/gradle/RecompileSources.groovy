@@ -11,7 +11,7 @@ class RecompileSources extends DefaultTask {
     @TaskAction
     void recompileSources() {
         def exit = new ProcessHelper().dir(new File("mcp/"))
-                .command("bash", "recompile.sh", "--server")
+                .command("python", "runtime/recompile.py", "--server")
                 .inheritIO()
                 .start()
         if (exit != 0) {

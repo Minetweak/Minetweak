@@ -33,16 +33,16 @@ class GeneratePatches extends DefaultTask {
     }
 
     private void generatePatch(File vanilla) {
-        File modded = new File(vanilla.getPath().replace("vanillaSrc", "src"))
-        String path = vanilla.getPath().substring(15)
-        File patch = new File("patches/" + path + ".patch")
+        File modded = new File(vanilla.path.replace("vanillaSrc", "src"))
+        String path = vanilla.path.substring(15)
+        File patch = new File("patches/${path}.patch")
         try {
             String vStr = getFileAsString(vanilla)
             String mStr = getFileAsString(modded)
             Diff diff = Diff.diff(vanilla, modded, false)
             if (!diff.isEmpty()) {
-                patch.getParentFile().mkdirs()
-                String diffStr = diff.toUnifiedDiff(vanilla.getPath(), modded.getPath(),
+                patch.parentFile.mkdirs()
+                String diffStr = diff.toUnifiedDiff(vanilla.path, modded.path,
                         new StringReader(vStr), new StringReader(mStr), 5)
                 PrintWriter pw = new PrintWriter(patch)
                 pw.write(diffStr)
@@ -52,5 +52,4 @@ class GeneratePatches extends DefaultTask {
             e.printStackTrace()
         }
     }
-
 }

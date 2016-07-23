@@ -1,15 +1,15 @@
 --- mcp/vanillaSrc/minecraft_server/net/minecraft/server/MinecraftServer.java
 +++ mcp/src/minecraft_server/net/minecraft/server/MinecraftServer.java
-@@ -1075,11 +1075,11 @@
-         }
-     }
+@@ -735,11 +735,11 @@
+          LOG.info(msg);
+       }
+    }
  
-     public String getServerModName()
-     {
--        return "vanilla";
-+        return "minetweak";
-     }
+    public String getServerModName() {
+-      return "vanilla";
++      return "minetweak";
+    }
  
-     /**
-      * Adds the server info, including from theWorldServer, to the crash report.
-      */
+    public CrashReport addServerInfoToCrashReport(CrashReport report) {
+       report.getCategory().func_189529_a("Profiler Position", new ICrashReportDetail<String>() {
+          public String call() throws Exception {

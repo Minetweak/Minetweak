@@ -9,8 +9,7 @@ import org.gradle.api.tasks.TaskAction
  */
 class DownloadMCP extends DefaultTask {
 
-    static
-    final String MCP_DOWNLOAD = "http://www.modcoderpack.com/website/sites/default/files/releases/mcp910.zip"
+    private static final String MCP_DOWNLOAD = "http://www.modcoderpack.com/website/sites/default/files/releases/mcp931.zip"
 
     @TaskAction
     void downloadMCP() {

@@ -14,7 +14,7 @@ class DecompileSources extends DefaultTask {
             state.upToDate()
         } else {
             def exit = new ProcessHelper().dir(new File("mcp/"))
-                    .command("bash", "decompile.sh", "--server", "--nocopy")
+                    .command("python", "runtime/decompile.py", "--server", "--nocopy")
                     .inheritIO()
                     .start()
             if (exit != 0) {

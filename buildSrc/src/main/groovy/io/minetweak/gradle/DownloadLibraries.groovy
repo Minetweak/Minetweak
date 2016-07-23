@@ -10,11 +10,11 @@ import org.gradle.api.tasks.TaskAction
 class DownloadLibraries extends DefaultTask {
 
     static final String LW_URL =
-            "https://libraries.minecraft.net/net/minecraft/launchwrapper/1.11/launchwrapper-1.11.jar"
+            "https://libraries.minecraft.net/net/minecraft/launchwrapper/1.12/launchwrapper-1.12.jar"
 
     @TaskAction
     void downloadLibraries() {
-        def lw = new File("mcp/lib/launchwrapper-1.11.jar")
+        def lw = new File("mcp/lib/launchwrapper-1.12.jar")
         if (lw.exists()) {
             state.upToDate()
         } else {
